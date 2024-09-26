@@ -1,0 +1,87 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyPUwNQYkPRSTb3NU8eyQeQo",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/Adriel-Vieira/m-todos-num-ricos-e-aplicados/blob/main/N%C2%B04\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Atividade 4. Determine as raízes da equação x²-2(cos(x)²-2(sin(x))³ . Apresente o gráfico e as tabelas de iterações."
+      ],
+      "metadata": {
+        "id": "Q8JZobbLpbCK"
+      }
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "eNUTiF1CpZYR"
+      },
+      "outputs": [],
+      "source": [
+        "import numpy as np\n",
+        "import matplotlib.pyplot as plt\n",
+        "from scipy.optimize import newton\n",
+        "\n",
+        "# Definição da função\n",
+        "def f(x):\n",
+        "    return x**2 - 2*(np.cos(x)**2 - 2*(np.sin(x)**3))\n",
+        "\n",
+        "# Geração de valores para o gráfico\n",
+        "x_values = np.linspace(-3, 3, 400)\n",
+        "y_values = f(x_values)\n",
+        "\n",
+        "# Plotando a função\n",
+        "plt.figure(figsize=(10, 6))\n",
+        "plt.plot(x_values, y_values, label=r'$f(x) = x^2 - 2(\\cos(x)^2 - 2(\\sin(x))^3)$')\n",
+        "plt.axhline(0, color='black', lw=0.5, ls='--')\n",
+        "plt.axvline(0, color='black', lw=0.5, ls='--')\n",
+        "plt.title('Gráfico da função')\n",
+        "plt.xlabel('x')\n",
+        "plt.ylabel('f(x)')\n",
+        "plt.ylim(-10, 10)\n",
+        "plt.grid()\n",
+        "plt.legend()\n",
+        "plt.show()\n",
+        "\n",
+        "# Encontrando raízes usando o método de Newton\n",
+        "initial_guesses = [-2, 0, 2]\n",
+        "roots = []\n",
+        "\n",
+        "# Tabelas de iterações\n",
+        "for guess in initial_guesses:\n",
+        "    root, result = newton(f, guess, full_output=True, disp=False)\n",
+        "    roots.append((root, result.iterations, result.root))\n",
+        "\n",
+        "# Exibindo resultados\n",
+        "print(\"Raízes encontradas:\")\n",
+        "for root, iterations, estimated_root in roots:\n",
+        "    print(f\"Raiz: {root:.6f}, Iterações: {iterations}, Estimativa da raiz: {estimated_root:.6f}\")\n"
+      ]
+    }
+  ]
+}
